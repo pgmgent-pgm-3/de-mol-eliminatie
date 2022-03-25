@@ -72,6 +72,10 @@ input:focus {
     opacity: 1;
 }
 
+#yellow {
+    background-image: url('../images/geel.jpg');
+}
+
 #green {
     background-image: url('../images/groen.jpg');
 }

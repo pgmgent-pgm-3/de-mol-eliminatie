@@ -84,6 +84,7 @@ inpName.onkeypress = (e) => {
     e.preventDefault();
 
     const givenName = inpName.value.toLowerCase();
+
     if (isCandidateOut(givenName)) {
       showOverlay("red");
       playSound("./sounds/afvaller.m4a");
@@ -117,6 +118,27 @@ const removeCandidate = (givenName) => {
   worstcandidate = calculateWorstCandidate();
   console.log(candidates);
   console.log(worstcandidate);
+
+  if (candidates.length == 2) {
+    setTimeout(() => {
+      showOverlay("yellow");
+      playSound("./sounds/doodskist.mp3");
+      soundTicker.volume = 0;
+
+      showWhoHasWon();
+    }, 3000);
+  }
+};
+
+const showWhoHasWon = () => {
+  const mol = candidates.reduce((prev, curr) => {
+    return prev.isMol ? prev : curr;
+  });
+  const winner = candidates.reduce((prev, curr) => {
+    return !prev.isMol ? prev : curr;
+  });
+
+  alert(`De winnaar is ${winner.name} en de mol is ${mol.name}`);
 };
 
 // check if candidate must be eliminated
@@ -132,9 +154,11 @@ const showOverlay = (color) => {
   overlay.classList.remove("hidden");
 
   // revert to hidden state, unless it is red, then keep it bloody red!
-  setTimeout(() => {
-    overlay.classList.add("hidden");
-  }, 5000);
+  if (color != "yellow") {
+    setTimeout(() => {
+      overlay.classList.add("hidden");
+    }, 5000);
+  }
 };
 
 // start the application
