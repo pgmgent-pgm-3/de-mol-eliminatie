@@ -70,6 +70,7 @@ const calculateWorstCandidate = () => {
 };
 
 let worstcandidate = calculateWorstCandidate();
+console.log(worstcandidate);
 
 //////////// INTERACTIVITY WITH USER ////////////////
 
@@ -86,7 +87,7 @@ inpName.onkeypress = (e) => {
     if (isCandidateOut(givenName)) {
       showOverlay("red");
       playSound("./sounds/afvaller.m4a");
-      soundTicker.volume = 0;
+      removeCandidate(givenName);
     } else {
       showOverlay("green");
       playSound("./sounds/niet-afvaller.m4a");
@@ -94,6 +95,28 @@ inpName.onkeypress = (e) => {
 
     inpName.value = "";
   }
+};
+
+const removeCandidate = (givenName) => {
+  // get candidate - to be removed - index
+  const candidateIndex = candidates.findIndex((candidate, index) => {
+    return candidate.name.toLowerCase() == givenName;
+  });
+
+  // delete candidates from active candidates list
+  candidates.splice(candidateIndex, 1);
+
+  // no more free passes when only 4 candidates left
+  if (candidates.length <= 4) {
+    candidates.forEach((candidate, index) => {
+      candidates[index].hasTicket = false;
+    });
+  }
+
+  // reassign worst candidate
+  worstcandidate = calculateWorstCandidate();
+  console.log(candidates);
+  console.log(worstcandidate);
 };
 
 // check if candidate must be eliminated
@@ -109,11 +132,9 @@ const showOverlay = (color) => {
   overlay.classList.remove("hidden");
 
   // revert to hidden state, unless it is red, then keep it bloody red!
-  if (color != "red") {
-    setTimeout(() => {
-      overlay.classList.add("hidden");
-    }, 5000);
-  }
+  setTimeout(() => {
+    overlay.classList.add("hidden");
+  }, 5000);
 };
 
 // start the application
