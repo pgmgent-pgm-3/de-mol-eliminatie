@@ -1,8 +1,4 @@
-let soundTicker;
-
-// initialize app when clicked on page (init sound)
-let appStarted = false;
-
+// start with only names
 let candidateNames = [
   "Jens",
   "Yens",
@@ -17,8 +13,9 @@ let candidateNames = [
   "Anke",
 ];
 
+// make random generated candidate objects array
+// one mole, & at least one free pass
 let candidates = [];
-
 const makeRandomCandidateObjects = () => {
   // assign a random mol
   const molIndex = Math.floor(Math.random() * candidateNames.length);
@@ -40,6 +37,18 @@ const makeRandomCandidateObjects = () => {
 
 // assign random candidates
 makeRandomCandidateObjects();
+
+const calculateWorstCandidate = () => {
+  // calculate magic things go here
+
+  // return worst candidate
+  return candidates[Math.floor(Math.random() * candidates.length)];
+};
+
+let worstcandidate = calculateWorstCandidate();
+console.log(worstcandidate);
+
+//////////// INTERACTIVITY WITH USER ////////////////
 
 // DOM elements
 const btnStart = document.querySelector("#btnStart");
@@ -64,10 +73,14 @@ inpName.onkeypress = (e) => {
   }
 };
 
+// check if candidate must be eliminated
 const isCandidateOut = (name) => {
-  return name == "chantal";
+  // calculate the to-be-eliminated candidate
+  // lowest score (evt. with longest time), no mol, no ticket
+  return name == worstcandidate.name.toLowerCase();
 };
 
+// show red or green overlay
 const showOverlay = (color) => {
   // get overlay element
   const overlay = document.querySelector(`#${color}`);
@@ -82,6 +95,7 @@ const showOverlay = (color) => {
   }
 };
 
+// start the application
 btnStart.onclick = (e) => {
   e.preventDefault();
   // start app
@@ -99,12 +113,15 @@ const removeSplashScreen = () => {
   splashScreen.style.display = "none";
 };
 
+//////////// HTML5 AUDIO API ////////////////
+
 // play some sound
 const playSound = (soundPath) => {
   const sound = new Audio(soundPath);
   sound.play();
 };
-
+// play infinite ticker sounds
+let soundTicker; // global var (to make it possible to mute from elsewhere)
 const playTicker = () => {
   soundTicker = new Audio("./sounds/getik.m4a");
   soundTicker.volume = 0.7;
