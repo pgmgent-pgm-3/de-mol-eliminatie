@@ -40,13 +40,26 @@ makeRandomCandidateObjects();
 
 const calculateWorstCandidate = () => {
   // calculate magic things go here
+  const filteredCandidates = candidates.filter((candidate) => {
+    return !candidate.isMol && !candidate.hasTicket;
+  });
 
-  // return worst candidate
-  return candidates[Math.floor(Math.random() * candidates.length)];
+  const badCandidate = filteredCandidates.reduce((prev, curr) => {
+    return prev.score < curr.score ? prev : curr;
+  });
+
+  const worstCandidates = filteredCandidates.filter((candidate) => {
+    return candidate.score == badCandidate.score;
+  });
+
+  const worstCandidate = worstCandidates.reduce((prev, current) => {
+    return prev.time > curr.time ? prev : curr;
+  });
+
+  return worstCandidate;
 };
 
 let worstcandidate = calculateWorstCandidate();
-console.log(worstcandidate);
 
 //////////// INTERACTIVITY WITH USER ////////////////
 
@@ -75,8 +88,6 @@ inpName.onkeypress = (e) => {
 
 // check if candidate must be eliminated
 const isCandidateOut = (name) => {
-  // calculate the to-be-eliminated candidate
-  // lowest score (evt. with longest time), no mol, no ticket
   return name == worstcandidate.name.toLowerCase();
 };
 
