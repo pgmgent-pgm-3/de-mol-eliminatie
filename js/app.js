@@ -1,16 +1,26 @@
 // start with only names
 let candidateNames = [
-  "Jens",
-  "Yens",
-  "Uma",
-  "Toon",
-  "Sven",
-  "Philippe",
-  "Nele",
-  "Gretel",
-  "Emanuelle",
-  "Bert",
-  "Anke",
+  "Tara",
+  "Kilian",
+  "Michiel",
+  "Helena",
+  "Kimberly",
+  "Jasper",
+  "Emma",
+  "Brent",
+  "Youri",
+  "Youssef",
+  "Dion",
+  "Yordi",
+  "Nikita",
+  "Erwin",
+  "Stef",
+  "Gilles",
+  "Jef",
+  "Frederick",
+  "Arnaud",
+  "Kenny",
+  "Sahin",
 ];
 
 // make random generated candidate objects array
@@ -52,7 +62,7 @@ const calculateWorstCandidate = () => {
     return candidate.score == badCandidate.score;
   });
 
-  const worstCandidate = worstCandidates.reduce((prev, current) => {
+  const worstCandidate = worstCandidates.reduce((prev, curr) => {
     return prev.time > curr.time ? prev : curr;
   });
 
