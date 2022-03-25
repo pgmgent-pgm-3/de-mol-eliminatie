@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(to bottom, #030504, #030504, #030504, rgb(24, 46, 44));
+    color: white;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
+}
+
+
+@media only screen and (min-width: 600px)  {
+    body::after {
+        pointer-events: none;
+        position: absolute;
+        content: " ";
+        background: url('../images/logo.png') no-repeat right top;
+        background-size: 300px;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+    }
+}
+
+
+form {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    z-index: 4;
+    background: black;
+}
+
+label, input {
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: -1px;
+    font-size: 2rem;
+    color: white;
+    padding: 5px;
+}
+
+input {
+    margin-left: 10px;
+    background: none;
+    width: 300px;
+    border: none;
+    border-bottom: 3px solid rgb(60, 115, 115);
+}
+
+input:focus {
+    outline: none;
+}
+
+.overlay, .splash {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 10;
+    pointer-events: none;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+
+#green {
+    background-image: url('../images/groen.jpg');
+}
+
+#red {
+    background-image: url('../images/rood.jpg');
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.splash {
+    pointer-events: all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.splash button {
+    border: none;
+    border-bottom: 3px solid rgb(60, 115, 115);
+    background: none;
+    padding: 2rem;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2rem;
+    transition: all 0.3s;
+}
+
+.splash button:hover {
+    background-color: rgb(60, 115, 115);
+    cursor: pointer;
+}
